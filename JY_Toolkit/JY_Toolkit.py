@@ -33,6 +33,20 @@ class Jy_makeDataset(object):
         # circle origin point of negative moon [x , y]
         n_origin = [p_origin[0] + hor_distance, p_origin[1] - ver_distance]
 
+        mid_origin_point = [p_origin[0]/2 + n_origin[0]/2, p_origin[1]/2 + n_origin[1]/2]
+
+        p_origin[0] = mid_origin_point[0] + (hor_distance/2) * math.cos(math.pi/180*slope) 
+        p_origin[1] = mid_origin_point[1] + (hor_distance/2) * math.sin(math.pi/180*slope) 
+
+        p_origin[0] = p_origin[0] + (ver_distance/2) * math.cos(math.pi/180 * (slope + 90))
+        p_origin[1] = p_origin[1] + (ver_distance/2) * math.sin(math.pi/180 * (slope + 90))
+
+        n_origin[0] = mid_origin_point[0] + (hor_distance/2) * math.cos(math.pi/180*(slope + 180)) 
+        n_origin[1] = mid_origin_point[1] + (hor_distance/2) * math.sin(math.pi/180*(slope + 180)) 
+
+        n_origin[0] = n_origin[0] + (ver_distance/2) * math.cos(math.pi/180*(slope + 270)) 
+        n_origin[1] = n_origin[1] + (ver_distance/2) * math.sin(math.pi/180*(slope + 270)) 
+
         # product positive point
         p_sample = []
         n_sample = []
@@ -66,7 +80,9 @@ class Jy_dataSetProcess(object):
 
     def Jy_train_test_split(X,
                             y,
-                            test_size : 0.2,
+                            *
+                            ,
+                            test_size = 0.2,
                             ):
         data = np.column_stack((X,y))
         if test_size >= 1 and test_size <= 0:
@@ -93,7 +109,8 @@ if __name__ == '__main__':
 
     Jy_makeDataset.random_state(random_seed)
 
-    np_data, label = Jy_makeDataset.draw_HalfMoon(n_sample=2000)
+    np_data, label = Jy_makeDataset.draw_HalfMoon(n_sample=5000,slope= 45,ver_distance=-2)
+
 
     p_point_x1 = [np_data[i][0] for i in range(len(np_data)) if label[i] == 1]
     p_point_x2 = [np_data[i][1] for i in range(len(np_data)) if label[i] == 1]
@@ -108,4 +125,3 @@ if __name__ == '__main__':
     ax1.scatter(n_point_x1, n_point_x2, c='blue')
     plt.show()
 
-    print(np_data)
