@@ -109,7 +109,7 @@ if __name__ == '__main__':
 
     Jy_makeDataset.random_state(random_seed)
 
-    np_data, label = Jy_makeDataset.draw_HalfMoon(n_sample=5000,slope= 45,ver_distance=-2)
+    np_data, label = Jy_makeDataset.draw_HalfMoon(n_sample=1000,slope= 30,ver_distance=-2)
 
 
     p_point_x1 = [np_data[i][0] for i in range(len(np_data)) if label[i] == 1]
@@ -120,6 +120,8 @@ if __name__ == '__main__':
 
     fig = plt.figure(num="HalfMoons", figsize=(8, 8))
     ax1 = fig.add_subplot(111)
+    ax1.set_xlabel('x1')
+    ax1.set_ylabel('x2')
 
     ax1.scatter(p_point_x1, p_point_x2, c='red')
     ax1.scatter(n_point_x1, n_point_x2, c='blue')
