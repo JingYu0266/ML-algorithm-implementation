@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# by myself modify test
+
+
+
 # vscode
 tempCodeRunnerFile.py
 
