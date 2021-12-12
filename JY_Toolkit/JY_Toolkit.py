@@ -75,6 +75,33 @@ class Jy_makeDataset(object):
 
     pass
 
+class Jy_dataShow(object):
+    def __init__(self):
+        pass
+    def show_TwoDimData(X,y):
+        y_type_array = []
+        for sample in y:
+            if sample not in y_type_array:
+                y_type_array.append(sample)
+        y_type_count = len(y_type_array)
+        # all_X = [[],[],[]]
+        all_X = []
+        for n in range(y_type_count):
+            temp_point_x1 = [X[i][0] for i in range(len(X)) if y[i] == y_type_array[n]]
+            temp_point_x2 = [X[i][1] for i in range(len(X)) if y[i] == y_type_array[n]]
+            all_X.append([temp_point_x1.copy(),temp_point_x2.copy()])
+        fig = plt.figure(num = 'DataShow',figsize=(8,8))
+        plot_1 = fig.add_subplot(111)
+        plot_1.set_xlabel('x1')
+        plot_1.set_ylabel('x2')
+        plot_1.set_title('DataShow')
+        for i in range(y_type_count):
+            plot_1.scatter(all_X[i][0],all_X[i][1],label=y_type_array[i])
+        # plot_1.scatter(p_point_x1, p_point_x2, c='red')
+        # plot_1.scatter(n_point_x1, n_point_x2, c='blue')
+        plot_1.legend(loc=3)
+        plt.show()
+    pass
 
 class Jy_dataSetProcess(object):
 
@@ -110,20 +137,5 @@ if __name__ == '__main__':
     Jy_makeDataset.random_state(random_seed)
 
     np_data, label = Jy_makeDataset.draw_HalfMoon(n_sample=1000,slope= 30,ver_distance=-2)
-
-
-    p_point_x1 = [np_data[i][0] for i in range(len(np_data)) if label[i] == 1]
-    p_point_x2 = [np_data[i][1] for i in range(len(np_data)) if label[i] == 1]
-
-    n_point_x1 = [np_data[i][0] for i in range(len(np_data)) if label[i] == -1]
-    n_point_x2 = [np_data[i][1] for i in range(len(np_data)) if label[i] == -1]
-
-    fig = plt.figure(num="HalfMoons", figsize=(8, 8))
-    ax1 = fig.add_subplot(111)
-    ax1.set_xlabel('x1')
-    ax1.set_ylabel('x2')
-
-    ax1.scatter(p_point_x1, p_point_x2, c='red')
-    ax1.scatter(n_point_x1, n_point_x2, c='blue')
-    plt.show()
+    Jy_dataShow.show_TwoDimData(np_data, label)
 
