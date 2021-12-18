@@ -9,7 +9,8 @@ __pycache__/
 
 # vscode
 tempCodeRunnerFile.py
-
+__pycache__
+*.pyc
 # C extensions
 *.so
 
